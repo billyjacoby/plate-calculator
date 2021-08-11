@@ -50,14 +50,16 @@ function App() {
   });
 
   function clickCalculate() {
-    setResults(
-      calculateWeights({
-        desiredWeight,
-        barWeight,
-        // Interesting that passing in the actual object here changes it
-        plateInventory: { ...plateInventory },
-      })
-    );
+    if (desiredWeight) {
+      setResults(
+        calculateWeights({
+          desiredWeight,
+          barWeight,
+          // Interesting that passing in the actual object here changes it
+          plateInventory: { ...plateInventory },
+        })
+      );
+    }
   }
 
   return (
