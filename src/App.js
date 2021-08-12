@@ -50,16 +50,14 @@ function App() {
   });
 
   function clickCalculate() {
-    if (desiredWeight) {
-      setResults(
-        calculateWeights({
-          desiredWeight,
-          barWeight,
-          // Interesting that passing in the actual object here changes it
-          plateInventory: { ...plateInventory },
-        })
-      );
-    }
+    setResults(
+      calculateWeights({
+        desiredWeight,
+        barWeight: barWeight || 0,
+        // Interesting that passing in the actual object here changes it
+        plateInventory: { ...plateInventory },
+      })
+    );
   }
 
   return (
@@ -127,7 +125,11 @@ function App() {
         {results ? (
           <>
             <h3>Plates needed:</h3>
-            <button type="button" onClick={clickCalculate}>
+            <button
+              type="button"
+              onClick={clickCalculate}
+              disabled={!desiredWeight}
+            >
               re-Calculate!
             </button>
             <div>
@@ -145,7 +147,11 @@ function App() {
             {console.log(JSON.stringify(results))}
           </>
         ) : (
-          <button type="button" onClick={clickCalculate}>
+          <button
+            type="button"
+            onClick={clickCalculate}
+            disabled={!desiredWeight}
+          >
             Calculate!
           </button>
         )}
