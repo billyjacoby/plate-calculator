@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/plate-calculator/static/js/main.c4905666.chunk.js",
+    "main.js.map": "/plate-calculator/static/js/main.c4905666.chunk.js.map",
+    "runtime-main.js": "/plate-calculator/static/js/runtime-main.ead8cc58.js",
+    "runtime-main.js.map": "/plate-calculator/static/js/runtime-main.ead8cc58.js.map",
+    "static/css/2.679831fc.chunk.css": "/plate-calculator/static/css/2.679831fc.chunk.css",
+    "static/js/2.15952c28.chunk.js": "/plate-calculator/static/js/2.15952c28.chunk.js",
+    "static/js/2.15952c28.chunk.js.map": "/plate-calculator/static/js/2.15952c28.chunk.js.map",
+    "index.html": "/plate-calculator/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/plate-calculator/static/css/2.679831fc.chunk.css.map",
+    "static/js/2.15952c28.chunk.js.LICENSE.txt": "/plate-calculator/static/js/2.15952c28.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ead8cc58.js",
+    "static/css/2.679831fc.chunk.css",
+    "static/js/2.15952c28.chunk.js",
+    "static/js/main.c4905666.chunk.js"
+  ]
+}
