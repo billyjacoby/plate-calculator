@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import "../node_modules/normalize.css/normalize.css";
 
+import Header from "./components/Header";
 import Plate from "./components/Plate";
 import calculateWeights from "./lib/plateCalculator";
 
@@ -10,13 +11,12 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  justify-content: center;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;
 
 const Form = styled.form`
@@ -34,6 +34,13 @@ const PlateInventory = styled.div`
   align-items: center;
 `;
 
+const PlateContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 function App() {
   const [desiredWeight, setDesiredWeight] = useState("");
   const [barWeight, setBarWeight] = useState("");
@@ -49,7 +56,8 @@ function App() {
     2.5: 2,
   });
 
-  function clickCalculate() {
+  function clickCalculate(e) {
+    e?.preventDefault();
     setResults(
       calculateWeights({
         desiredWeight,
@@ -62,11 +70,8 @@ function App() {
 
   return (
     <AppContainer>
+      <Header />
       <InnerContainer>
-        <header>
-          <h1>Plate Calculator</h1>
-          <p>get strong, not smart</p>
-        </header>
         <Form>
           <label htmlFor="desiredWeight">
             Enter Desired Weight:
@@ -88,73 +93,78 @@ function App() {
               onChange={(e) => setBarWeight(e.target.value)}
             />
           </label>
-        </Form>
-        <PlateInventory>
-          <h2>Plate Inventory:</h2>
-          <Plate
-            weight="45"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-          <Plate
-            weight="35"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-          <Plate
-            weight="25"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-          <Plate
-            weight="10"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-          <Plate
-            weight="5"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-          <Plate
-            weight="2.5"
-            inventory={plateInventory}
-            setPlateInventory={setPlateInventory}
-          />
-        </PlateInventory>
-        {results ? (
-          <>
-            <h3>Plates needed:</h3>
+          {results ? (
+            <>
+              <button
+                type="submit"
+                onClick={clickCalculate}
+                disabled={!desiredWeight}
+              >
+                re-Calculate!
+              </button>
+              <button type="button" onClick={() => setResults()}>
+                clear
+              </button>
+              <h3>Plates needed:</h3>
+              <div>
+                <p>Closest Weight: {results?.closestWeight}</p>
+                <ul>
+                  {results?.plates.map((plate) => {
+                    return (
+                      <li key={plate.plateWeight}>
+                        {plate.plateWeight} - {plate.qty}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              {console.log(JSON.stringify(results))}
+            </>
+          ) : (
             <button
-              type="button"
+              type="submit"
               onClick={clickCalculate}
               disabled={!desiredWeight}
             >
-              re-Calculate!
+              Calculate!
             </button>
-            <div>
-              <p>Closest Weight: {results?.closestWeight}</p>
-              <ul>
-                {results?.plates.map((plate) => {
-                  return (
-                    <li key={plate.plateWeight}>
-                      {plate.plateWeight} - {plate.qty}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {console.log(JSON.stringify(results))}
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={clickCalculate}
-            disabled={!desiredWeight}
-          >
-            Calculate!
-          </button>
-        )}
+          )}
+        </Form>
+        <PlateInventory>
+          <h2>Plate Inventory:</h2>
+          <PlateContainer>
+            <Plate
+              weight="45"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+            <Plate
+              weight="35"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+            <Plate
+              weight="25"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+            <Plate
+              weight="10"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+            <Plate
+              weight="5"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+            <Plate
+              weight="2.5"
+              inventory={plateInventory}
+              setPlateInventory={setPlateInventory}
+            />
+          </PlateContainer>
+        </PlateInventory>
       </InnerContainer>
     </AppContainer>
   );
