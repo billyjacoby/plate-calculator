@@ -23,6 +23,7 @@ jobs:
             --release "$GITHUB_SHA"
         env:
           MELI_TOKEN: ${{ secrets.MELI_TOKEN }}
+          MELI_SITE: ${{ secrets.MELI_SITE }}
           # Enable PR previews:
           # uses the default GITHUB_TOKEN set by Github Actions
           # https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
