@@ -36,7 +36,7 @@ const PlateInventory = styled.div`
 
 function App() {
   const [desiredWeight, setDesiredWeight] = useState("");
-  const [barWeight, setBarWeight] = useState("");
+  const [barWeight, setBarWeight] = useState(45);
 
   const [results, setResults] = useState();
 
@@ -78,16 +78,34 @@ function App() {
               onChange={(e) => setDesiredWeight(e.target.value)}
             />
           </label>
-          <label htmlFor="barWeight">
-            Bar Weight:
-            <input
-              type="number"
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <label htmlFor="barWeight"> Choose a weight: </label>
+            <select
               name="barWeight"
-              placeholder="45"
+              id="barWeight"
+              style={{ padding: "2px 10px" }}
               value={barWeight}
               onChange={(e) => setBarWeight(e.target.value)}
-            />
-          </label>
+            >
+              <option value="45" default>
+                45lbs
+              </option>
+              <option value="35">35lbs</option>
+              <option value="25">25lbs</option>
+              <option value="15">15lbs</option>
+              <option value="10">10lbs</option>
+              <option value="0">0</option>
+              <option value="other" disabled>
+                other
+              </option>
+            </select>
+          </div>
         </Form>
         <PlateInventory>
           <h2>Plate Inventory:</h2>
