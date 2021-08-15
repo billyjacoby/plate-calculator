@@ -5,6 +5,9 @@ import "../node_modules/normalize.css/normalize.css";
 
 import Header from "./components/Header";
 import Plate from "./components/Plate";
+
+import { Button } from "./style/Global";
+
 import calculateWeights from "./lib/plateCalculator";
 
 const AppContainer = styled.div`
@@ -41,9 +44,36 @@ const PlateContainer = styled.div`
   justify-content: center;
 `;
 
+const PlatesNeeded = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--colorFive);
+  padding: 10px 100px;
+  border-radius: 10px;
+
+  & > * {
+    margin: 2px 0px;
+  }
+`;
+
+const WeightNeededList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+`;
+
+const WeightNeededItem = styled.li`
+  font-weight: 600;
+  font-size: 24px;
+  margin: 5px 0;
+`;
+
 function App() {
   const [desiredWeight, setDesiredWeight] = useState("");
-  const [barWeight, setBarWeight] = useState("");
+  const [barWeight, setBarWeight] = useState(45);
 
   const [results, setResults] = useState();
 
@@ -83,51 +113,61 @@ function App() {
               onChange={(e) => setDesiredWeight(e.target.value)}
             />
           </label>
-          <label htmlFor="barWeight">
-            Bar Weight:
-            <input
-              type="number"
-              name="barWeight"
-              placeholder="45"
-              value={barWeight}
-              onChange={(e) => setBarWeight(e.target.value)}
-            />
-          </label>
+          <label htmlFor="barWeight"> Choose a weight: </label>
+          <select
+            name="barWeight"
+            id="barWeight"
+            style={{ padding: "2px 10px" }}
+            value={barWeight}
+            onChange={(e) => setBarWeight(e.target.value)}
+          >
+            <option value="45" default>
+              45lbs
+            </option>
+            <option value="35">35lbs</option>
+            <option value="25">25lbs</option>
+            <option value="15">15lbs</option>
+            <option value="10">10lbs</option>
+            <option value="0">0</option>
+            <option value="other" disabled>
+              other
+            </option>
+          </select>
           {results ? (
-            <>
-              <button
+            <PlatesNeeded>
+              <h3>Plates needed:</h3>
+              <div>
+                {!results?.exactWeight && (
+                  <p>Closest Weight: {results?.closestWeight}</p>
+                )}
+                <WeightNeededList>
+                  {results?.plates.map((plate) => {
+                    return (
+                      <WeightNeededItem key={plate.plateWeight}>
+                        <span>
+                          {plate.plateWeight}lbs x {plate.qty}
+                        </span>
+                      </WeightNeededItem>
+                    );
+                  })}
+                </WeightNeededList>
+              </div>
+              <Button
                 type="submit"
                 onClick={clickCalculate}
                 disabled={!desiredWeight}
               >
                 re-Calculate!
-              </button>
-              <button type="button" onClick={() => setResults()}>
-                clear
-              </button>
-              <h3>Plates needed:</h3>
-              <div>
-                <p>Closest Weight: {results?.closestWeight}</p>
-                <ul>
-                  {results?.plates.map((plate) => {
-                    return (
-                      <li key={plate.plateWeight}>
-                        {plate.plateWeight} - {plate.qty}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              {console.log(JSON.stringify(results))}
-            </>
+              </Button>
+            </PlatesNeeded>
           ) : (
-            <button
+            <Button
               type="submit"
               onClick={clickCalculate}
               disabled={!desiredWeight}
             >
               Calculate!
-            </button>
+            </Button>
           )}
         </Form>
         <PlateInventory>

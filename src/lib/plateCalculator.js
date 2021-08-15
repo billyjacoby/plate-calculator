@@ -32,15 +32,12 @@ function calculateWeights({ desiredWeight, barWeight, plateInventory }) {
       weight -= set[0] * set[1];
     }
   }
-
+  if (
+    parseInt(weightsNeeded.closestWeight, 10) === parseInt(desiredWeight, 10)
+  ) {
+    weightsNeeded.exactWeight = true;
+  }
   return weightsNeeded;
 }
 
 export default calculateWeights;
-// console.log(
-//   calculateWeights({
-//     desiredWeight: 185,
-//     barWeight: 45,
-//     plateInventory: { 5: 4, 45: 4, 35: 2, 25: 4, 10: 4, 2.5: 4 },
-//   })
-// );

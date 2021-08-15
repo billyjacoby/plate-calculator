@@ -1,71 +1,61 @@
 import styled from "styled-components";
-import PlateSVG from "../img/plate";
+import { Button } from "../style/Global";
 
 const Container = styled.div`
+  border: 1px solid var(--colorFive);
+  margin: 5px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1 200px;
+  /* padding: 50px 0; */
 `;
-const Button = styled.button`
+
+const InnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const WeightText = styled.span`
   font-size: 24px;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 15px;
+  font-weight: 600;
 `;
-
-const plateColors = {
-  45: "red",
-  35: "green",
-  25: "yellow",
-  10: "blue",
-  5: "white",
-  2.5: "black",
-};
-
-const plateFactors = {
-  45: 1,
-  35: 0.9,
-  25: 0.75,
-  10: 0.6,
-  5: 0.55,
-  2.5: 0.5,
-};
 
 const Plate = ({ weight, inventory, setPlateInventory }) => {
   return (
     <Container>
-      <PlateSVG
-        fill={plateColors[weight]}
-        r={weight}
-        weight={weight}
-        factor={plateFactors[weight]}
-      />
-      <div>
-        <Button
-          type="button"
-          onClick={() =>
-            setPlateInventory({
-              ...inventory,
-              [weight]: inventory[weight] - 1,
-            })
-          }
-        >
-          -
-        </Button>
-        <span>{inventory[weight]}</span>
-        <Button
-          type="button"
-          onClick={() =>
-            setPlateInventory({
-              ...inventory,
-              [weight]: inventory[weight] + 1,
-            })
-          }
-        >
-          +
-        </Button>
-      </div>
+      <InnerContainer>
+        <WeightText>{weight} lbs</WeightText>
+        <div>
+          <Button
+            type="button"
+            onClick={() =>
+              setPlateInventory({
+                ...inventory,
+                [weight]: inventory[weight] - 1,
+              })
+            }
+          >
+            -
+          </Button>
+          <WeightText>{inventory[weight]}</WeightText>
+          <Button
+            type="button"
+            onClick={() =>
+              setPlateInventory({
+                ...inventory,
+                [weight]: inventory[weight] + 1,
+              })
+            }
+          >
+            +
+          </Button>
+        </div>
+      </InnerContainer>
     </Container>
   );
 };

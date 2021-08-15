@@ -37,7 +37,7 @@ export default function Header() {
           <SubHeading>get strong, not smart</SubHeading>
         </div>
         <div>
-          <a href="#">Github</a>
+          <a href="https://github.com">Github</a>
         </div>
       </InnerContainer>
     </HeaderStyled>
