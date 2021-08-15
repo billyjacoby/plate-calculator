@@ -113,7 +113,7 @@ function App() {
               onChange={(e) => setDesiredWeight(e.target.value)}
             />
           </label>
-          <label htmlFor="barWeight"> Choose a weight: </label>
+          <label htmlFor="barWeight"> Choose a bar weight: </label>
           <select
             name="barWeight"
             id="barWeight"
